@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './styles.css';
 
 const Location = ({ city }) => { //destucturing
 	//const city = props.city;
 	//const { city } = props; //destructuring ES6
 	return (
-		<div>
+		<div className="locationCont">
 			<h1>{city}</h1>
 		</div>
 		);
