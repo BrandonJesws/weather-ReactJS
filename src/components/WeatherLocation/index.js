@@ -3,18 +3,10 @@ import Location from './Location';
 import WeatherData from '../WeatherData/index';
 import transformWeather from '../../services/transformWeather';
 import './styles.css';
-import { SUN } from '../../constants/weathers';
 
 const location = "Hidalgo,mx";
 const key_api = "66865048b0d988725d7376abe6c5c709";
 const url_api = `http://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${key_api}&units=metric`;
-
-const data1 = {
-	temperature: 20,
-	weatherState: SUN,
-	humedad: 10,
-	viento: '10 m/s'
-};
 
 class WeatherLocation extends Component { 
 
@@ -22,9 +14,10 @@ class WeatherLocation extends Component {
 		super();
 		this.state = {
 			city: 'Hidalgo',
-			data: data1
+			data: null
 		};
 
+		console.log("Constructor");
 		this.handleUpdateClick = this.handleUpdateClick.bind(this);
 	}
 
@@ -38,11 +31,16 @@ class WeatherLocation extends Component {
 			});
 	}
 
+	componentWillMount(){
+		console.log("WillMount");
+		this.handleUpdateClick();
+	}
+
 	render() {
 		const {	city, data } = this.state; 
 		return (<div className="weatherLocationCont">
 					<Location city={city}/>
-					<WeatherData data={data}/>
+					{ data ? <WeatherData data={data}/> : 'Cargando...' }
 					<button onClick={this.handleUpdateClick}>Actualizar</button>
 				</div>);
 	}
